@@ -1,0 +1,43 @@
+<h1>TodoList</h1>
+
+<div class="box">
+  <div>
+  <input type="text" class="mainInput" placeholder="Новая задача" (keydown.enter)="onCreate(task.value)" #task>
+  <button (click)="onCreate(task.value)">Создать новую задачу</button>
+
+  <ul>
+    <li *ngFor="let todo of todoList">
+      <input type="checkbox" name="isComplited" (click)="onChangeStatusMain(todo.id)">
+      <span *ngIf="todo.complited">
+        <del>
+        Задача: {{todo.title}}
+        <br>
+        Дата создания: {{todo.createdAt}}
+      </del>
+      <button (click)="onDeleteItem(todo.id)">Delete</button>
+      </span>
+      <span *ngIf="!todo.complited">
+        Задача:
+        <input class="change"onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';" [(ngModel)]="todo.title">
+        <br>
+        Дата создания: {{todo.createdAt}}
+      </span>
+      <br>
+      <ul>
+        <li *ngFor="let todos of todo.children">
+          <input type="checkbox" name="isComplited" (click)="onChangeStatusChild(todos.id)">
+         <span *ngIf="todos.complited">
+          <del>
+            Подзадача: {{todos.title}}
+          </del>
+        </span>
+         <span *ngIf="!todos.complited">
+          Подзадача: {{todos.title}}
+        </span>
+        </li>
+      </ul>
+      <br>
+  </li>
+  </ul>
+</div>
+</div>
